@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.test.app.entity.Sales;
 import com.test.app.service.SaleService;
 
@@ -22,12 +23,14 @@ import com.test.app.service.SaleService;
 @RequestMapping("/sale")
 public class SaleController {
 
+	Logger logger = LoggerFactory.getLogger(SaleController.class);
+	
 	@Autowired
 	SaleService saleService;
 	
 	@GetMapping
 	public ResponseEntity<List<Sales>> getSales(){
-		
+		logger.info("Getting the Sales datails");	
 		List<Sales> list = saleService.getAllSales();
 		return new ResponseEntity<List<Sales>>(list, new HttpHeaders(), HttpStatus.OK);
 	}
@@ -40,6 +43,7 @@ public class SaleController {
 	
 	@DeleteMapping()
 	public HttpStatus deleteById(@RequestParam("id") Integer id){
+		logger.info("Deleting the sale details for the sale id"+id);
 		saleService.deleteById(id);
 		return  HttpStatus.OK;
 	}
