@@ -2,8 +2,6 @@ version: "1.0"
 
 services:
   BootHibernate:
-    build: 
-      context: ./
-      dockerfile: Dockerfile
+    build: .
     ports:
       - 8080:8082
